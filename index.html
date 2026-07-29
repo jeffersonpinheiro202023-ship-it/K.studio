@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K.Studio | Extensão de Cílios</title>
+<meta name="description" content="K.Studio — Extensão de cílios com técnica e cuidado. Volumes Tufinhos, Brasileiro, Egípcio, Glamour, Luxo e Russo. Atendimento somente com hora marcada.">
+<meta name="theme-color" content="#CFAE70">
+<meta property="og:type" content="business.business">
+<meta property="og:title" content="K.Studio | Extensão de Cílios">
+<meta property="og:description" content="Extensão de cílios com técnica e cuidado. Agende seu horário pelo WhatsApp.">
+<meta property="og:image" content="imagens/hero-cilios.jpg">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23FADADD'/%3E%3Cpath d='M8 34c8-16 40-16 48 0-8 12-40 12-48 0z' fill='none' stroke='%23CFAE70' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='34' r='6' fill='%23CFAE70'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rosa: #FADADD;
+    --bege: #F5E9DA;
+    --dourado: #CFAE70;
+    --dourado-escuro: #B8955A;
+    --branco: #FFFFFF;
+    --texto: #4A3B35;
+    --texto-suave: #8A7A72;
+    --sombra: 0 10px 30px rgba(74,59,53,0.08);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Jost', sans-serif;
+    color:var(--texto);
+    background:var(--branco);
+    font-weight:300;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3,.serif{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:500;
+    letter-spacing:.3px;
+  }
+
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{display:block;max-width:100%;}
+  section{padding:110px 8vw;}
+  .eyebrow{
+    font-size:.75rem;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:var(--dourado-escuro);
+    font-weight:500;
+    margin-bottom:14px;
+    display:inline-block;
+  }
+
+  /* Divisor em forma de arco - assinatura visual do site (curva de sobrancelha/cílio) */
+  .arco-divisor{
+    width:120px;
+    height:30px;
+    margin:22px auto 0;
+    display:block;
+  }
+  .arco-divisor.left{margin:14px 0 26px;}
+  .arco-divisor path{
+    fill:none;
+    stroke:var(--dourado);
+    stroke-width:2;
+    stroke-linecap:round;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:16px 36px;
+    background:var(--dourado);
+    color:var(--branco);
+    border-radius:50px;
+    font-size:.95rem;
+    letter-spacing:1px;
+    font-weight:500;
+    border:none;
+    cursor:pointer;
+    transition:all .35s ease;
+    box-shadow:0 8px 20px rgba(207,174,112,0.35);
+  }
+  .btn:hover{background:var(--dourado-escuro); transform:translateY(-2px);}
+  .btn.outline{
+    background:transparent;
+    color:var(--dourado-escuro);
+    border:1.5px solid var(--dourado);
+    box-shadow:none;
+  }
+  .btn.outline:hover{background:var(--dourado); color:var(--branco);}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:1000;
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(10px);
+    padding:18px 8vw;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    transition:box-shadow .3s ease;
+  }
+  header.scrolled{box-shadow:0 4px 20px rgba(74,59,53,0.06);}
+  .logo{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.7rem;
+    font-weight:600;
+    color:var(--texto);
+  }
+  .logo span{color:var(--dourado-escuro);}
+  nav ul{display:flex;gap:38px;}
+  nav a{
+    font-size:.85rem;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--texto);
+    position:relative;
+    padding-bottom:4px;
+  }
+  nav a::after{
+    content:'';
+    position:absolute;left:0;bottom:0;
+    width:0; height:1px;
+    background:var(--dourado);
+    transition:width .3s ease;
+  }
+  nav a:hover::after{width:100%;}
+  .menu-toggle{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none;}
+  .menu-toggle span{width:26px; height:1.5px; background:var(--texto);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding:150px 8vw 80px;
+    background:linear-gradient(135deg, var(--rosa) 0%, var(--bege) 100%);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:60px;
+    align-items:center;
+    width:100%;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 5vw, 4.2rem);
+    line-height:1.1;
+    margin-bottom:22px;
+    color:var(--texto);
+  }
+  .hero p{
+    font-size:1.15rem;
+    color:var(--texto-suave);
+    max-width:460px;
+    margin-bottom:36px;
+  }
+  .hero-photo-wrap{position:relative;}
+  .hero-photo-wrap::before{
+    content:'';
+    position:absolute;
+    inset:-18px -18px auto auto;
+    width:70%; height:70%;
+    border:1.5px solid var(--dourado);
+    border-radius:50% 50% 4% 4% / 60% 60% 4% 4%;
+    z-index:0;
+  }
+  .hero-photo{
+    position:relative;
+    aspect-ratio:3/4;
+    border-radius:50% 50% 4% 4% / 60% 60% 4% 4%;
+    background:linear-gradient(160deg,#fff 0%, var(--rosa) 60%, var(--dourado) 140%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:var(--sombra);
+    overflow:hidden;
+    z-index:1;
+  }
+  .hero-photo img{width:100%; height:100%; object-fit:cover;}
+  .hero-photo .placeholder-label{
+    color:var(--dourado-escuro);
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1.1rem;
+    text-align:center;
+    padding:0 20px;
+  }
+  .hero-photo svg{width:70px; opacity:.55; margin-bottom:14px;}
+  .hero-badge{
+    position:absolute;
+    left:-24px; bottom:34px;
+    background:var(--branco);
+    padding:14px 22px;
+    border-radius:16px;
+    box-shadow:var(--sombra);
+    display:flex; align-items:center; gap:10px;
+    z-index:2;
+  }
+  .hero-badge svg{width:22px; height:22px; color:var(--dourado); flex-shrink:0;}
+  .hero-badge span{font-family:'Cormorant Garamond', serif; font-size:1rem; color:var(--texto); line-height:1.2;}
+  .hero-badge b{display:block; font-size:1.3rem; color:var(--dourado-escuro);}
+  @media (max-width:900px){
+    .hero-badge{left:50%; transform:translateX(-50%); bottom:-18px; white-space:nowrap;}
+  }
+
+  /* ---------- SEÇÃO GENÉRICA ---------- */
+  .titulo-secao{text-align:center; max-width:640px; margin:0 auto 64px;}
+  .titulo-secao h2{font-size:clamp(2rem,3.5vw,2.8rem);}
+  .titulo-secao p{color:var(--texto-suave); margin-top:16px; font-size:1.05rem;}
+
+  /* ---------- SERVIÇOS ---------- */
+  .servicos{background:var(--branco);}
+  .grid-servicos{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:34px;
+  }
+  .card-servico{
+    background:var(--branco);
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:var(--sombra);
+    transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .card-servico:hover{transform:translateY(-8px); box-shadow:0 20px 40px rgba(74,59,53,0.14);}
+  .foto-placeholder{
+    aspect-ratio:4/3;
+    background:linear-gradient(135deg, var(--bege), var(--rosa));
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    color:var(--dourado-escuro);
+    overflow:hidden;
+  }
+  .foto-placeholder img{width:100%; height:100%; object-fit:cover; object-position:center;}
+  .foto-placeholder svg{width:38px; margin-bottom:10px; opacity:.7;}
+  .foto-placeholder span{font-size:.75rem; letter-spacing:1px; text-transform:uppercase; opacity:.75;}
+  .card-servico-destaque{
+    display:grid;
+    grid-template-columns:1fr 1.15fr;
+    max-width:920px;
+    margin:0 auto;
+    background:var(--branco);
+    border-radius:26px;
+    overflow:hidden;
+    box-shadow:var(--sombra);
+  }
+  .card-servico-destaque .foto-placeholder{aspect-ratio:auto; height:100%;}
+  .card-servico-destaque .card-servico-conteudo{padding:44px 46px;}
+  @media (max-width:760px){
+    .card-servico-destaque{grid-template-columns:1fr;}
+    .card-servico-destaque .foto-placeholder{aspect-ratio:4/3;}
+    .card-servico-destaque .card-servico-conteudo{padding:32px 28px;}
+  }
+  .card-servico-conteudo{padding:26px 26px 30px;}
+  .card-servico h3{font-size:1.4rem; margin-bottom:8px;}
+  .card-servico .desc{font-size:.92rem; color:var(--texto-suave); margin-bottom:16px;}
+  .preco{
+    display:inline-block;
+    font-family:'Jost', sans-serif;
+    font-size:.85rem;
+    font-weight:500;
+    color:var(--dourado-escuro);
+    background:var(--bege);
+    padding:6px 16px;
+    border-radius:50px;
+  }
+
+  .lista-precos{margin-top:6px;}
+  .lista-precos li{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 0;
+    border-bottom:1px dashed rgba(74,59,53,0.12);
+    font-size:.98rem;
+  }
+  .lista-precos li:last-child{border-bottom:none;}
+  .lista-precos .nome-item{color:var(--texto);}
+  .lista-precos .valor-item{
+    font-weight:500;
+    color:var(--dourado-escuro);
+    white-space:nowrap;
+    margin-left:16px;
+  }
+  .grid-servicos.duas-colunas{grid-template-columns:repeat(2, 1fr);}
+  @media (max-width:900px){
+    .grid-servicos.duas-colunas{grid-template-columns:1fr;}
+  }
+
+  /* ---------- GALERIA ---------- */
+  .galeria{background:var(--bege);}
+  .grid-galeria{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:28px;
+  }
+  .item-galeria{
+    background:var(--branco);
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:var(--sombra);
+  }
+  .foto-galeria{aspect-ratio:4/5; overflow:hidden;}
+  .foto-galeria img{width:100%; height:100%; object-fit:cover; object-position:center; transition:transform .5s ease;}
+  .item-galeria:hover .foto-galeria img{transform:scale(1.05);}
+  .legenda-galeria{
+    display:flex;
+    justify-content:space-between;
+    padding:14px 20px;
+    font-size:.75rem;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--texto-suave);
+  }
+  .legenda-galeria b{color:var(--dourado-escuro);}
+
+  /* ---------- SOBRE ---------- */
+  .sobre{
+    background:var(--branco);
+    display:grid;
+    grid-template-columns:1fr 1.1fr;
+    gap:70px;
+    align-items:center;
+  }
+  .sobre-foto{
+    aspect-ratio:4/5;
+    border-radius:6% 40% 6% 40%;
+    background:linear-gradient(160deg, var(--rosa), var(--bege) 70%);
+    box-shadow:var(--sombra);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .sobre-foto img{width:100%; height:100%; object-fit:cover; object-position:top;}
+  .sobre-foto svg{opacity:.55;}
+  .sobre-texto p{font-size:1.15rem; color:var(--texto); font-style:italic; font-family:'Cormorant Garamond', serif; line-height:1.8; margin-bottom:26px;}
+  .sobre-texto .assinatura{font-family:'Cormorant Garamond', serif; font-size:1.2rem; color:var(--dourado-escuro);}
+
+  /* ---------- DEPOIMENTOS ---------- */
+  .depoimentos{background:var(--rosa);}
+  .grid-depoimentos{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:30px;
+  }
+  .card-depoimento{
+    background:var(--branco);
+    border-radius:20px;
+    padding:36px 30px;
+    box-shadow:var(--sombra);
+  }
+  .estrelas{color:var(--dourado); font-size:1.1rem; margin-bottom:16px; letter-spacing:3px;}
+  .card-depoimento p{font-size:.98rem; color:var(--texto); margin-bottom:22px;}
+  .autor{display:flex; align-items:center; gap:14px;}
+  .avatar{
+    width:46px; height:46px; border-radius:50%;
+    background:linear-gradient(135deg, var(--dourado), var(--bege));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cormorant Garamond', serif; font-weight:600; color:var(--branco);
+  }
+  .autor .nome{font-size:.9rem; font-weight:500;}
+  .autor .cidade{font-size:.78rem; color:var(--texto-suave);}
+
+  /* ---------- CONTATO ---------- */
+  .contato{
+    background:var(--branco);
+    display:flex;
+    justify-content:center;
+    text-align:center;
+  }
+  .info-contato .item{
+    display:flex; gap:16px; margin-bottom:28px; align-items:flex-start;
+  }
+  .info-contato .item svg{width:22px; flex-shrink:0; margin-top:3px; color:var(--dourado-escuro); stroke:var(--dourado-escuro);}
+  .info-contato h4{font-size:1.05rem; margin-bottom:4px; font-family:'Jost',sans-serif; font-weight:500;}
+  .info-contato p{color:var(--texto-suave); font-size:.92rem;}
+  .redes{display:flex; gap:14px; margin-top:8px;}
+  .redes a{
+    width:42px; height:42px; border-radius:50%;
+    border:1.5px solid var(--dourado);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--dourado-escuro);
+    transition:.3s;
+  }
+  .redes a:hover{background:var(--dourado); color:var(--branco);}
+  /* ---------- WHATSAPP FLUTUANTE ---------- */
+  .whatsapp-flutuante{
+    position:fixed;
+    bottom:26px; right:26px;
+    width:62px; height:62px;
+    background:#25D366;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 26px rgba(37,211,102,0.45);
+    z-index:999;
+    transition:transform .3s ease;
+  }
+  .whatsapp-flutuante:hover{transform:scale(1.08);}
+  .whatsapp-flutuante svg{width:30px; height:30px; fill:#fff;}
+
+  /* ---------- RODAPÉ ---------- */
+  footer{
+    background:var(--texto);
+    color:var(--bege);
+    padding:70px 8vw 30px;
+  }
+  .rodape-grid{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:40px;
+    padding-bottom:40px;
+    border-bottom:1px solid rgba(245,233,218,0.15);
+  }
+  footer .logo-rodape{font-family:'Cormorant Garamond', serif; font-size:1.8rem; color:var(--branco);}
+  footer .logo-rodape span{color:var(--dourado);}
+  footer .col h5{font-size:.85rem; letter-spacing:2px; text-transform:uppercase; color:var(--dourado); margin-bottom:16px;}
+  footer .col a, footer .col p{color:rgba(245,233,218,0.75); font-size:.9rem; display:block; margin-bottom:10px;}
+  footer .col a:hover{color:var(--dourado);}
+  .copyright{
+    padding-top:24px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-size:.8rem;
+    color:rgba(245,233,218,0.5);
+  }
+
+  /* ---------- RESPONSIVO ---------- */
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero{padding-top:130px;}
+    .hero-photo-wrap{order:-1; max-width:320px; margin:0 auto 40px;}
+    .grid-servicos, .grid-galeria, .grid-depoimentos{grid-template-columns:repeat(2,1fr);}
+    .sobre{grid-template-columns:1fr;}
+    .sobre-foto{max-width:320px; margin:0 auto;}
+  }
+  @media (max-width:640px){
+    section{padding:80px 6vw;}
+    nav{
+      position:fixed; top:0; right:-100%; height:100vh; width:70%;
+      background:var(--branco); flex-direction:column; padding:110px 40px;
+      transition:right .4s ease; box-shadow:-10px 0 30px rgba(0,0,0,0.08);
+    }
+    nav.aberto{right:0;}
+    nav ul{flex-direction:column; gap:26px;}
+    .menu-toggle{display:flex;}
+    .grid-servicos, .grid-galeria, .grid-depoimentos{grid-template-columns:1fr;}
+    .rodape-grid{flex-direction:column; gap:30px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header">
+  <a href="#" class="logo">K.Studio<span>.</span></a>
+  <nav id="nav">
+    <ul>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#galeria">Galeria</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#depoimentos">Depoimentos</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+  <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="topo">
+  <div class="hero-grid">
+    <div>
+      <span class="eyebrow">Estúdio de Beleza</span>
+      <h1>Realce sua<br>beleza natural</h1>
+      <p>Extensão de cílios com técnica e cuidado, em um ambiente pensado para o seu bem-estar.</p>
+      <a href="https://wa.me/5511947907442?text=Ol%C3%A1%21%20Quero%20agendar%20minha%20extens%C3%A3o%20de%20c%C3%ADlios.%20Qual%20volume%20voc%C3%AA%20tem%20dispon%C3%ADvel%3A%20Tufinhos%2C%20Brasileiro%2C%20Eg%C3%ADpcio%2C%20Glamour%2C%20Luxo%20ou%20Russo%3F" target="_blank" class="btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.3c1.5.8 3.1 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3C4.4 15 4 13.5 4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8.2-8 8.2z"/></svg>
+        Agendar no WhatsApp
+      </a>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo">
+        <img src="imagens/hero-cilios.jpg" alt="Extensão de cílios com acabamento profissional" fetchpriority="high">
+      </div>
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6L22 9.3l-5 4.9 1.2 7.1L12 17.8l-6.2 3.5L7 14.2 2 9.3l7.1-.7z"/></svg>
+        <span><b>5.0</b>avaliação das clientes</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="servicos" id="servicos">
+  <div class="titulo-secao">
+    <span class="eyebrow">O que oferecemos</span>
+    <h2>Nossos serviços</h2>
+    <svg class="arco-divisor" viewBox="0 0 120 30"><path d="M4 6c20-14 92-14 112 0"/></svg>
+    <p>Cada técnica escolhida a dedo para valorizar o seu olhar.</p>
+  </div>
+  <div class="grid-servicos">
+
+    <div class="card-servico-destaque">
+      <div class="foto-placeholder">
+        <img src="imagens/servico-cilios.jpg" alt="Extensão de cílios finalizada" loading="lazy">
+      </div>
+      <div class="card-servico-conteudo">
+        <h3>Extensão de Cílios</h3>
+        <p class="desc">Escolha o volume ideal para o seu olhar, com aplicação fio a fio.</p>
+        <ul class="lista-precos">
+          <li><span class="nome-item">Tufinhos</span><span class="valor-item">R$ 80,00</span></li>
+          <li><span class="nome-item">Brasileiro</span><span class="valor-item">R$ 100,00</span></li>
+          <li><span class="nome-item">Egípcio</span><span class="valor-item">R$ 120,00</span></li>
+          <li><span class="nome-item">Glamour</span><span class="valor-item">R$ 120,00</span></li>
+          <li><span class="nome-item">Luxo</span><span class="valor-item">R$ 130,00</span></li>
+          <li><span class="nome-item">Russo</span><span class="valor-item">R$ 150,00</span></li>
+        </ul>
+        <a href="https://wa.me/5511947907442?text=Ol%C3%A1%21%20Quero%20agendar%20minha%20extens%C3%A3o%20de%20c%C3%ADlios.%20Qual%20volume%20voc%C3%AA%20tem%20dispon%C3%ADvel%3A%20Tufinhos%2C%20Brasileiro%2C%20Eg%C3%ADpcio%2C%20Glamour%2C%20Luxo%20ou%20Russo%3F" target="_blank" class="btn" style="margin-top:20px;">Agendar no WhatsApp</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="galeria" id="galeria">
+  <div class="titulo-secao">
+    <span class="eyebrow">Resultados reais</span>
+    <h2>Nosso trabalho</h2>
+    <svg class="arco-divisor" viewBox="0 0 120 30"><path d="M4 6c20-14 92-14 112 0"/></svg>
+    <p>Alguns resultados reais de extensão de cílios feitos no estúdio.</p>
+  </div>
+  <div class="grid-galeria">
+
+    <div class="item-galeria">
+      <div class="foto-placeholder" style="aspect-ratio:4/5;">
+        <img src="imagens/volume-egipcio.jpg" alt="Extensão de cílios volume egípcio" loading="lazy">
+      </div>
+      <div class="legenda-galeria"><span>Cílios</span><b>Volume Egípcio</b></div>
+    </div>
+
+    <div class="item-galeria">
+      <div class="foto-placeholder" style="aspect-ratio:4/5;">
+        <img src="imagens/resultado-cliente.jpg" alt="Resultado de extensão de cílios em cliente" loading="lazy">
+      </div>
+      <div class="legenda-galeria"><span>Cílios</span><b>Resultado completo</b></div>
+    </div>
+
+    <div class="item-galeria">
+      <div class="foto-placeholder" style="aspect-ratio:4/5;">
+        <img src="imagens/olho-detalhe-final.jpg" alt="Detalhe de extensão de cílios" loading="lazy">
+      </div>
+      <div class="legenda-galeria"><span>Cílios</span><b>Volume Personalizado</b></div>
+    </div>
+
+    <div class="item-galeria">
+      <div class="foto-placeholder" style="aspect-ratio:4/5;">
+        <img src="imagens/detalhe-precisao.jpg" alt="Detalhe de precisão da extensão de cílios" loading="lazy">
+      </div>
+      <div class="legenda-galeria"><span>Cílios</span><b>Fio a Fio</b></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section class="sobre" id="sobre">
+  <div class="sobre-foto">
+    <img src="imagens/foto-dona.jpeg" alt="Fundadora do K.Studio" loading="lazy">
+  </div>
+  <div class="sobre-texto">
+    <span class="eyebrow">Sobre o estúdio</span>
+    <h2 style="margin-bottom:0;">Cada olhar é único</h2>
+    <svg class="arco-divisor left" viewBox="0 0 120 30"><path d="M4 6c20-14 92-14 112 0"/></svg>
+    <p>"Aqui cada olhar é único. Meu objetivo é valorizar sua beleza respeitando o formato do seu rosto e seu estilo. Atendimento individualizado em um ambiente acolhedor."</p>
+    <p class="assinatura">— Fundadora, K.Studio</p>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="depoimentos" id="depoimentos">
+  <div class="titulo-secao">
+    <span class="eyebrow">Quem já passou por aqui</span>
+    <h2>Depoimentos</h2>
+    <svg class="arco-divisor" viewBox="0 0 120 30"><path d="M4 6c20-14 92-14 112 0"/></svg>
+  </div>
+  <div class="grid-depoimentos">
+
+    <div class="card-depoimento">
+      <div class="estrelas">★★★★★</div>
+      <p>"Fiz a extensão de cílios volume russo e o resultado ficou perfeito, super natural. Atendimento cuidadoso do início ao fim."</p>
+      <div class="autor">
+        <div class="avatar">J</div>
+        <div>
+          <div class="nome">Juliana M.</div>
+          <div class="cidade">Cliente há 1 ano</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-depoimento">
+      <div class="estrelas">★★★★★</div>
+      <p>"O volume brasileiro deixou meu olhar completamente diferente. Recomendo demais, ambiente muito aconchegante."</p>
+      <div class="autor">
+        <div class="avatar">C</div>
+        <div>
+          <div class="nome">Camila R.</div>
+          <div class="cidade">Cliente há 8 meses</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-depoimento">
+      <div class="estrelas">★★★★★</div>
+      <p>"Profissionalismo do começo ao fim. A extensão de cílios ficou natural e durou muito mais do que eu esperava."</p>
+      <div class="autor">
+        <div class="avatar">F</div>
+        <div>
+          <div class="nome">Fernanda A.</div>
+          <div class="cidade">Cliente há 2 anos</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="contato" id="contato">
+  <div class="info-contato" style="max-width:560px; margin:0 auto; text-align:left;">
+    <span class="eyebrow">Fale com a gente</span>
+    <h2 style="margin-bottom:30px;">Agende seu horário</h2>
+
+    <div class="item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      <div>
+        <h4>Atendimento</h4>
+        <p>Somente com hora marcada</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.3c1.5.8 3.1 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+      <div>
+        <h4>WhatsApp</h4>
+        <p><a href="https://wa.me/5511947907442?text=Ol%C3%A1%21%20Quero%20agendar%20minha%20extens%C3%A3o%20de%20c%C3%ADlios.%20Qual%20volume%20voc%C3%AA%20tem%20dispon%C3%ADvel%3A%20Tufinhos%2C%20Brasileiro%2C%20Eg%C3%ADpcio%2C%20Glamour%2C%20Luxo%20ou%20Russo%3F" target="_blank">(11) 94790-7442</a></p>
+      </div>
+    </div>
+
+    <div class="item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      <div>
+        <h4>Instagram</h4>
+        <p><a href="https://www.instagram.com/by.karynnaalvesz" target="_blank">@by.karynnaalvesz</a></p>
+      </div>
+    </div>
+
+    <a href="https://wa.me/5511947907442?text=Ol%C3%A1%21%20Quero%20agendar%20minha%20extens%C3%A3o%20de%20c%C3%ADlios.%20Qual%20volume%20voc%C3%AA%20tem%20dispon%C3%ADvel%3A%20Tufinhos%2C%20Brasileiro%2C%20Eg%C3%ADpcio%2C%20Glamour%2C%20Luxo%20ou%20Russo%3F" target="_blank" class="btn" style="margin-top:10px;">Agendar no WhatsApp</a>
+  </div>
+</section>
+
+<!-- WHATSAPP FLUTUANTE -->
+<a href="https://wa.me/5511947907442?text=Ol%C3%A1%21%20Quero%20agendar%20minha%20extens%C3%A3o%20de%20c%C3%ADlios.%20Qual%20volume%20voc%C3%AA%20tem%20dispon%C3%ADvel%3A%20Tufinhos%2C%20Brasileiro%2C%20Eg%C3%ADpcio%2C%20Glamour%2C%20Luxo%20ou%20Russo%3F" target="_blank" class="whatsapp-flutuante" aria-label="Agendar no WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.3c1.5.8 3.1 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3C4.4 15 4 13.5 4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8.2-8 8.2z"/></svg>
+</a>
+
+<!-- RODAPÉ -->
+<footer>
+  <div class="rodape-grid">
+    <div class="col">
+      <div class="logo-rodape">K.Studio<span>.</span></div>
+      <p style="margin-top:14px; max-width:260px;">Extensão de cílios com técnica e cuidado.</p>
+    </div>
+    <div class="col">
+      <h5>Navegação</h5>
+      <a href="#servicos">Serviços</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <div class="col">
+      <h5>Redes</h5>
+      <a href="https://www.instagram.com/by.karynnaalvesz" target="_blank">Instagram</a>
+    </div>
+  </div>
+  <div class="copyright">
+    <span>© 2026 K.Studio. Todos os direitos reservados.</span>
+    <span>Feito com carinho para valorizar cada olhar.</span>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  const menuToggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('nav');
+  menuToggle.addEventListener('click', () => nav.classList.toggle('aberto'));
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('aberto')));
+</script>
+
+</body>
+</html>
